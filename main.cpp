@@ -11,9 +11,9 @@ class Owl
   Sound shot;
   bool curinside;
   Vector2 mousepos;
+  Rectangle colrec;
   
   public:
-  Rectangle owlcol;
 
   Owl()
   {
@@ -25,11 +25,12 @@ class Owl
   
   void Draw()
   {
+	// mousepos to fix uncentered scope idk how to not make it in better way
     mousepos.x = GetMouseX();
     mousepos.y = GetMouseY();
     DrawTextureEx(image, pos, 0, 0.1f, WHITE);
-    owlcol = Rectangle{pos.x, pos.y, 143, 110};
-    curinside = CheckCollisionPointRec(mousepos, owlcol);
+    colrec = Rectangle{pos.x, pos.y, 143, 110};
+    curinside = CheckCollisionPointRec(mousepos, colrec);
   }
 
   void Kill()
@@ -70,14 +71,14 @@ class Owl5: public Owl{};
 
 int main()
 {
-  // Window
+  // Initialize Based Game Window
   InitWindow(1280, 800, "Owl Shooter");
   InitAudioDevice();
   SetTargetFPS(60);
   // Music
   Music music = LoadMusicStream("PovOwlShooting.wav");
   PlayMusicStream(music);
-  // Background
+  // Load Background
   Texture2D background = LoadTexture("forest.png");
   // Load classes
   Owl owl;
@@ -90,11 +91,16 @@ int main()
   while (!WindowShouldClose())
   {
     BeginDrawing();
+	// Update every frame
     ClearBackground(WHITE);
+	// Draw Background
     DrawTexture(background, 0, 0, WHITE);
+	// Update Music
     UpdateMusicStream(music);
+	// Fix uncentered scope
     mousepos.x = GetMouseX() - 72;
     mousepos.y = GetMouseY() - 48;
+	// Draw 5 owls
     owl.Draw();
     owl.Kill();
     owl2.Draw();
@@ -105,8 +111,11 @@ int main()
     owl4.Kill();
     owl5.Draw();
     owl5.Kill();
+	// Draw score
     DrawText(TextFormat("KILLED OWLS %i", points), GetScreenWidth()/2 - 128, 20, 32, WHITE);
+	// Draw scope
     player.Draw();
+	// Press f to fullscreen
     if (IsKeyPressed(KEY_F))
     {
       ToggleFullscreen();
