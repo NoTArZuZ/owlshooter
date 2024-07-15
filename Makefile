@@ -4,7 +4,7 @@ CXX = clang
 
 INCLUDE_PATHS = -I"/usr/include"
 
-LINKER_PATHS = -L"/usr/local/lib"
+LINKER_PATHS = -L"/usr/lib"
 
 LINKER_FLAGS = -lraylib
 
