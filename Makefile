@@ -2,9 +2,9 @@ OBJS = *.cpp
 
 CXX = clang
 
-INCLUDE_PATHS = -I"include/"
+INCLUDE_PATHS = -I"include/" -I"/usr/include"
 
-LINKER_PATHS = -L"lib/"
+LINKER_PATHS = -L"lib/" -L"/usr/lib"
 
 LINKER_FLAGS = -lraylib -lglfw
 
