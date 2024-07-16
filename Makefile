@@ -2,13 +2,13 @@ OBJS = *.cpp
 
 CXX = clang
 
-INCLUDE_PATHS = -I"/usr/include"
+INCLUDE_PATHS = -I"include/"
 
-LINKER_PATHS = -L"/usr/lib"
+LINKER_PATHS = -L"lib/"
 
-LINKER_FLAGS = -lraylib
+LINKER_FLAGS = -lraylib -lglfw
 
 OBJ_NAME = owlshooter
 
 all: $(OBJS)
-	$(CXX) $(INCLUDE_PATHS) $(LINKER_PATHS) -o $(OBJ_NAME) $(OBJS) $(LINKER_FLAGS)
+	$(CXX) $(INCLUDE_PATHS) $(LINKER_PATHS) -Wl,-rpath,lib/ -o $(OBJ_NAME) $(OBJS) $(LINKER_FLAGS)
