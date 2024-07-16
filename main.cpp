@@ -51,14 +51,16 @@ class Owl
 
 class Player
 {
-  private:
-  Texture2D cursor;
-
   public:
-  
+  Texture2D cursor;
+  double cursorwidth;
+  double cursorheight;
+
   Player()
   {
     cursor = LoadTexture("scope.png");
+    cursorwidth = cursor.width * 0.1f;
+    cursorheight = cursor.height * 0.1f;
   }
   
   void Draw()
@@ -103,8 +105,8 @@ int main()
     // Update Music
     UpdateMusicStream(music);
     // Fix uncentered scope
-    mousepos.x = GetMouseX() - 72;
-    mousepos.y = GetMouseY() - 48;
+    mousepos.x = GetMouseX() - player.cursorwidth / 2;
+    mousepos.y = GetMouseY() - player.cursorheight / 2;
     // Draw 5 owls
     owl.Draw();
     owl.Kill();
