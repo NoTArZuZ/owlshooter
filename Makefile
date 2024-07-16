@@ -6,7 +6,7 @@ INCLUDE_PATHS = -I"include/" -I"/usr/include"
 
 LINKER_PATHS = -L"lib/" -L"/usr/lib"
 
-LINKER_FLAGS = -lraylib -lglfw
+LINKER_FLAGS = -lraylib
 
 OBJ_NAME = owlshooter
 
