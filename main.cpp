@@ -12,24 +12,28 @@ class Owl
   bool curinside;
   Vector2 mousepos;
   Rectangle colrec;
+  float imgwidth;
+  float imgheight;
   
   public:
 
   Owl()
   {
     image = LoadTexture("goofyowl.png");
+    imgwidth = image.width * 0.1f;
+    imgheight = image.height * 0.1f;
     shot = LoadSound("shot.mp3");
-    pos.x = GetRandomValue(0, GetScreenWidth() - 110);
-    pos.y = GetRandomValue(0, GetScreenHeight() - 143);
+    pos.x = GetRandomValue(0, GetScreenWidth() - imgwidth);
+    pos.y = GetRandomValue(0, GetScreenHeight() - imgheight);
   }
   
   void Draw()
   {
-	// mousepos to fix uncentered scope idk how to not make it in better way
+    // mousepos to fix uncentered scope idk how to not make it in better way
     mousepos.x = GetMouseX();
     mousepos.y = GetMouseY();
     DrawTextureEx(image, pos, 0, 0.1f, WHITE);
-    colrec = Rectangle{pos.x, pos.y, 143, 110};
+    colrec = Rectangle{pos.x, pos.y, imgwidth, imgheight};
     curinside = CheckCollisionPointRec(mousepos, colrec);
   }
 
@@ -39,8 +43,8 @@ class Owl
     {
       points++;
       PlaySound(shot);
-      pos.x = GetRandomValue(0, GetScreenWidth() - 110);
-      pos.y = GetRandomValue(0, GetScreenHeight() - 143);
+      pos.x = GetRandomValue(0, GetScreenWidth() - imgwidth);
+      pos.y = GetRandomValue(0, GetScreenHeight() - imgheight);
     }
   }
 };
@@ -91,16 +95,17 @@ int main()
   while (!WindowShouldClose())
   {
     BeginDrawing();
-	// Update every frame
+    // Update every frame
     ClearBackground(WHITE);
-	// Draw Background
-    DrawTexture(background, 0, 0, WHITE);
-	// Update Music
+    // Draw Background
+    double bgscale = background.width / GetScreenWidth() * 0.75f;
+    DrawTextureEx(background, Vector2{0,0}, 0, bgscale, WHITE);
+    // Update Music
     UpdateMusicStream(music);
-	// Fix uncentered scope
+    // Fix uncentered scope
     mousepos.x = GetMouseX() - 72;
     mousepos.y = GetMouseY() - 48;
-	// Draw 5 owls
+    // Draw 5 owls
     owl.Draw();
     owl.Kill();
     owl2.Draw();
@@ -111,11 +116,11 @@ int main()
     owl4.Kill();
     owl5.Draw();
     owl5.Kill();
-	// Draw score
+    // Draw score
     DrawText(TextFormat("KILLED OWLS %i", points), GetScreenWidth()/2 - 128, 20, 32, WHITE);
-	// Draw scope
+    // Draw scope
     player.Draw();
-	// Press f to fullscreen
+    // Press f to fullscreen
     if (IsKeyPressed(KEY_F))
     {
       ToggleFullscreen();
