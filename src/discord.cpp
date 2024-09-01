@@ -1,4 +1,4 @@
-vvv#include "discord.hpp"
+#include "discord.hpp"
 
 Discord discordrpc;
 
