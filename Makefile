@@ -1,14 +1,14 @@
-OBJS = *.cpp
+OBJS = src/*.cpp
 
 CXX = g++
 
-INCLUDE_PATHS = -I"include/" -I"/usr/include" -I"/usr/local/include"
+INCLUDE_PATHS = -I"./include"
 
-LINKER_PATHS = -L"lib/" -L"/usr/lib" -L"/usr/local/lib"
+LINKER_PATHS = -L"./lib"
 
-LINKER_FLAGS = -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -lc
+LINKER_FLAGS = -lraylib -lgdi32 -lwinmm -lopengl32 -lpthread -ldiscord-rpc -static
 
 OBJ_NAME = owlshooter
 
 all: $(OBJS)
-	$(CXX) $(INCLUDE_PATHS) $(LINKER_PATHS) -Wall -Wl,-rpath,lib/ -o $(OBJ_NAME) $(OBJS) $(LINKER_FLAGS)
+	$(CXX) -o $(OBJ_NAME) $(INCLUDE_PATHS) $(LINKER_PATHS) $(OBJS) $(LINKER_FLAGS) -Wl,--subsystem,windows
